@@ -1,5 +1,4 @@
 import { errorHandler } from "../utils/error.js";
-// import JWT from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import User from "../models/User.model.js";
 export const test = (req, res) => {
@@ -9,12 +8,8 @@ export const test = (req, res) => {
 };
 
 export const updateUser = async (req, res, next) => {
-  // const token =  req.cookies.access_token;
-  // if(!token){
-  //     return next(errorHandler(401,'Unauthorized'));
-  // }
   if (req.user.id !== req.params.id)
-    return next(errorHandler(401, "you are not authanticated"));
+    return next(errorHandler(401, "you are not authanticated to update profile"));
   try {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
